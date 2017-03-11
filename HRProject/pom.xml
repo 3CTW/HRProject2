@@ -4,11 +4,11 @@
   <groupId>com.yc</groupId>
   <artifactId>HRProject</artifactId>
   <packaging>war</packaging>
+  
   <version>0.0.1-SNAPSHOT</version>
   <name>HRProject Maven Webapp</name>
   <url>http://maven.apache.org</url>
   <dependencies>
-  
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -146,7 +146,6 @@
       <artifactId>commons-beanutils</artifactId>
       <version>1.8.0</version>
     </dependency>
-    
     
   </dependencies>
   <build>

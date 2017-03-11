@@ -54,7 +54,7 @@ create table config_file_first_kind(
 	first_kind_salary_id text ,
 	first_kind_sale_id text )  
 
-
+select ffk_id,first_kind_id,first_kind_name,first_kind_salary_id,first_kind_sale_id from config_file_first_kind;
 
 insert into config_file_first_kind(first_kind_id,first_kind_name,first_kind_salary_id,first_kind_sale_id) values('01','集团','1','1')
 
@@ -76,6 +76,7 @@ create table config_file_second_kind (
 	second_salary_id text ,
 	second_sale_id text );
 
+	select first_kind_id,first_kind_name,second_kind_id,second_kind_name,second_salary_id,second_sale_id from config_file_second_kind
 
 insert into config_file_second_kind(first_kind_id,first_kind_name,second_kind_id,second_kind_name,second_salary_id,second_sale_id) values('01','集团','01','软件公司','1','1')
 insert into config_file_second_kind(first_kind_id,first_kind_name,second_kind_id,second_kind_name,second_salary_id,second_sale_id) values('01','集团','02','生物科技有限公司','1','1')
@@ -103,7 +104,8 @@ create table config_file_third_kind (
 	third_kind_sale_id text ,
 	third_kind_is_retail char(2) );
 
- 
+ 	select first_kind_id,first_kind_name,second_kind_id,second_kind_name,third_kind_id,third_kind_name,third_kind_sale_id,third_kind_is_retail from config_file_third_kind;
+
 
 
 insert into config_file_third_kind(first_kind_id,first_kind_name,second_kind_id,second_kind_name,third_kind_id,third_kind_name,third_kind_sale_id,third_kind_is_retail) values('01','集团','01','软件公司','01','外包组','1','否')
@@ -159,9 +161,9 @@ insert into config_question_second_kind(first_kind_id,first_kind_name,second_kin
 create table config_public_char ( 
 	pbc_id smallint primary key auto_increment,
 	attribute_kind varchar(60) ,
-	attribute_name varchar(60) );  
-
-
+	attribute_name varchar(60) ); 
+	
+select * from config_public_char where attribute_kind="国籍"
 
 insert into config_public_char(attribute_kind,attribute_name) values('国籍','中国');
 insert into config_public_char(attribute_kind,attribute_name) values('国籍','美国');
@@ -293,6 +295,8 @@ create table config_major_kind (
 	mfk_id smallint primary key auto_increment,
 	major_kind_id char(2),
 	major_kind_name varchar(60)) ; 
+	
+select mfk_id,major_kind_id,major_kind_name  from config_major_kind;
 
 
 
@@ -319,7 +323,7 @@ create table config_major (
 	major_name varchar(60),
 	test_amount smallint );  
 
-
+select  mak_id, major_kind_id, major_kind_name,major_id,major_name,test_amount from config_major;
 
 
 insert into config_major(major_kind_id,major_kind_name,major_id,major_name,test_amount) values('01','销售','01','区域经理',0);
@@ -332,7 +336,6 @@ insert into config_major(major_kind_id,major_kind_name,major_id,major_name,test_
 insert into config_major(major_kind_id,major_kind_name,major_id,major_name,test_amount) values('04','生产部','02','技术工人',0);
 
 
-      //运行到这里
 /* 创建新表 "HumanFile_dig"。                                                                     */
 /* "human_file_dig" : 记录人力资源档案所做的任何更改                                                         */
 /* 	"hfd_id" : 主键，自动增长列                                                                       */
@@ -590,7 +593,7 @@ create table human_file (
 	recovery_time datetime ,
 	human_file_status bit );  
 
-//还未插入
+
 insert into human_file(human_id,first_kind_id ,first_kind_name  ,second_kind_id ,second_kind_name ,third_kind_id ,third_kind_name  ,
 	human_name  ,human_address  ,human_postcode  ,human_pro_designation  ,human_major_kind_id ,human_major_kind_name  ,human_major_id  ,
 	hunma_major_name  ,human_telephone ,human_mobilephone ,human_bank  ,human_account  ,human_qq  ,human_email  ,human_hobby  ,human_speciality ,
@@ -600,7 +603,7 @@ insert into human_file(human_id,first_kind_id ,first_kind_name  ,second_kind_id 
 	regist_time,check_time ,change_time ,lastly_change_time ,delete_time ,recovery_time ,human_file_status) values('bt0101010001','01','Better集团','01','Better软件公司','01','外包组','fantia','北京海淀','100091',
 	'经理','02','软件开发','01','项目经理','','13699175041','建设银行','123456879586584','26284795','26284795@qq.com','舞蹈','java','女','无','党员','中国','汉族','1983-07-01','太原',24,'本科','16',
 	'生物工程','','140105198307010065','','','',0.00,0.00,0.00,0,0,0,0,'','','','',0,'admin','','','2007-05-31',null,null,null,null,null,1);
-select * from human_file;
+
 
 drop table human_file;
 
@@ -620,7 +623,9 @@ create table salary_standard_details (
 	item_name varchar(60) ,
 	salary double );  
 
-
+insert into salary_standard_details(standard_id,standard_name,item_id,item_name,salary) values('1000','一级机构',1,'基本工资',8000);
+insert into salary_standard_details(standard_id,standard_name,item_id,item_name,salary) values('1000','一级机构',2,'交通补贴',6000);
+select * from salary_standard_details;
 
 /* 创建新表 "salary_standard"。                                                                    */
 /* "salary_standard" : 薪酬标准基本信息表                                                              */
@@ -635,8 +640,8 @@ create table salary_standard_details (
 /* 	"check_time" : 复核时间                                                                       */
 /* 	"change_time" : 变更时间                                                                      */
 /* 	"salary_sum" : 薪酬总额                                                                       */
-/* 	"check_status" : 是否经过复核                                                                   */
-/* 	"change_status" : 更改状态                                                                    */
+/* 	"check_status" : 是否经过复核            0为未复查，1为复查                                                       */
+/* 	"change_status" : 更改状态                  0为未更改，1为更改了                                                   */
 /* 	"check_comment" : 复核意见                                                                   */ 
 /* 	"remark" : 备注                                                                             */  
 create table salary_standard ( 
@@ -656,8 +661,77 @@ create table salary_standard (
 	check_comment text ,
 	remark text ); 
 
+	select sdt_id,salary_details.standard_id,salary_details.standard_name,
+	item_id,item_name,salary,designer,register,checker,changer,regist_time,check_time,change_time,salary_sum,check_status,change_status,check_comment from
+	salary_standard_details salary_details, salary_standard  standard where salary_details.standard_id=standard.standard_id and standard.standard_id=1000;
+	
+	insert into salary_standard(standard_id,standard_name,designer,register,checker,changer,regist_time,check_time,change_time,salary_sum,check_status,change_status,check_comment,remark)
+	values('1000','一级机构','小米','小名',null,null,CURRENT_DATE,null,null,15000,0,0,null,null);
+	
+	delete from salary_standard where ssd_id=1;
+	select * from salary_standard;
+	
+/* 创建新表 "salary_grant"。                                                                       */
+/* "salary_grant" : 薪酬发放登记表                                                                   */
+/* 	"sgr_id" : 主键，自动增长列                                                                       */
+/* 	"salary_grant_id" : 薪酬发放编号                                                                */
+/* 	"salary_standard_id" : 薪酬标准单编号                                                            */
+/* 	"first_kind_id" : 一级机构编号                                                                  */
+/* 	"first_kind_name" : 一级机构名称                                                                */
+/* 	"second_kind_id" : 二级机构编号                                                                 */
+/* 	"second_kind_name" : 二级机构名称                                                               */
+/* 	"third_kind_id" : 三级机构编号                                                                  */
+/* 	"third_kind_name" : 三级机构名称                                                                */
+/* 	"human_amount" : 总人数                                                                      */
+/* 	"salary_standard_sum" : 标准薪酬总金额                                                           */
+/* 	"salary_paid_sum" : 实发总金额                                                                 */
+/* 	"register" : 登记人                                                                          */
+/* 	"regist_time" : 登记时间                                                                      */
+/* 	"checker" : 复核人                                                                           */
+/* 	"check_time" : 复核时间                                                                       */
+/* 	"check_status" : 复核状态                                                                     */  
+create table salary_grant ( 
+	sgr_id smallint primary key auto_increment,
+	salary_grant_id varchar(30) ,
+	salary_standard_id varchar(30) ,
+	first_kind_id char(2) ,
+	first_kind_name varchar(60) ,
+	second_kind_id char(2) ,
+	second_kind_name varchar(60) ,
+	third_kind_id char(2) ,
+	third_kind_name varchar(60) ,
+	human_amount smallint ,
+	salary_standard_su money ,
+	salary_paid_sum double ,
+	register varchar(60) ,
+	regist_time datetime ,
+	checker varchar(60) ,
+	check_time datetime,
+	check_status smallint );  
 
 
+
+/* 创建新表 "salary_grant_details"。                                                               */
+/* "salary_grant_details" : 薪酬发放详细信息                                                          */
+/* 	"grd_id" : 主键，自动增长列                                                                       */
+/* 	"salary_grant_id" : 薪酬发放编号                                                                */
+/* 	"human_id" : 档案编号                                                                         */
+/* 	"human_name" : 姓名                                                                         */
+/* 	"bouns_sum" : 奖励金额                                                                        */
+/* 	"sale_sum" : 销售绩效金额                                                                       */
+/* 	"deduct_sum" : 应扣金额                                                                       */
+/* 	"salary_standard_sum" : 标准薪酬总额                                                            */
+/* 	"salary_paid_sum" : 实发薪酬总额                                                                */  
+create table salary_grant_details ( 
+	grd_id smallint primary key auto_increment,
+	salary_grant_id varchar(30) ,
+	human_id varchar(30) ,
+	human_name varchar(60) ,
+	bouns_sum double ,
+	sale_sum double ,
+	deduct_sum double ,
+	salary_standard_sum double ,
+	salary_paid_sum double ) ; 
 
 
 /* 创建新表 "bonus"。                                                                              */
@@ -817,67 +891,6 @@ create table major_change (
 
 
 
-/* 创建新表 "salary_grant"。                                                                       */
-/* "salary_grant" : 薪酬发放登记表                                                                   */
-/* 	"sgr_id" : 主键，自动增长列                                                                       */
-/* 	"salary_grant_id" : 薪酬发放编号                                                                */
-/* 	"salary_standard_id" : 薪酬标准单编号                                                            */
-/* 	"first_kind_id" : 一级机构编号                                                                  */
-/* 	"first_kind_name" : 一级机构名称                                                                */
-/* 	"second_kind_id" : 二级机构编号                                                                 */
-/* 	"second_kind_name" : 二级机构名称                                                               */
-/* 	"third_kind_id" : 三级机构编号                                                                  */
-/* 	"third_kind_name" : 三级机构名称                                                                */
-/* 	"human_amount" : 总人数                                                                      */
-/* 	"salary_standard_sum" : 标准薪酬总金额                                                           */
-/* 	"salary_paid_sum" : 实发总金额                                                                 */
-/* 	"register" : 登记人                                                                          */
-/* 	"regist_time" : 登记时间                                                                      */
-/* 	"checker" : 复核人                                                                           */
-/* 	"check_time" : 复核时间                                                                       */
-/* 	"check_status" : 复核状态                                                                     */  
-create table salary_grant ( 
-	sgr_id smallint primary key auto_increment,
-	salary_grant_id varchar(30) ,
-	salary_standard_id varchar(30) ,
-	first_kind_id char(2) ,
-	first_kind_name varchar(60) ,
-	second_kind_id char(2) ,
-	second_kind_name varchar(60) ,
-	third_kind_id char(2) ,
-	third_kind_name varchar(60) ,
-	human_amount smallint ,
-	salary_standard_su money ,
-	salary_paid_sum double ,
-	register varchar(60) ,
-	regist_time datetime ,
-	checker varchar(60) ,
-	check_time datetime,
-	check_status smallint );  
-
-
-
-/* 创建新表 "salary_grant_details"。                                                               */
-/* "salary_grant_details" : 薪酬发放详细信息                                                          */
-/* 	"grd_id" : 主键，自动增长列                                                                       */
-/* 	"salary_grant_id" : 薪酬发放编号                                                                */
-/* 	"human_id" : 档案编号                                                                         */
-/* 	"human_name" : 姓名                                                                         */
-/* 	"bouns_sum" : 奖励金额                                                                        */
-/* 	"sale_sum" : 销售绩效金额                                                                       */
-/* 	"deduct_sum" : 应扣金额                                                                       */
-/* 	"salary_standard_sum" : 标准薪酬总额                                                            */
-/* 	"salary_paid_sum" : 实发薪酬总额                                                                */  
-create table salary_grant_details ( 
-	grd_id smallint primary key auto_increment,
-	salary_grant_id varchar(30) ,
-	human_id varchar(30) ,
-	human_name varchar(60) ,
-	bouns_sum double ,
-	sale_sum double ,
-	deduct_sum double ,
-	salary_standard_sum double ,
-	salary_paid_sum double ) ; 
 
 
 

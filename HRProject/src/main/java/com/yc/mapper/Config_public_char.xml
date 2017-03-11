@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <!-- 公共字段 -->
+<mapper namespace="com.yc.mapper.Config_public_char">
+	<select id="getAllConfig_public_chars" resultType="config_public_char" parameterType="Config_public_char">
+		select * from config_public_char where attribute_kind=#{attribute_kind}
+	</select>
+	
+	<select id="getConfig_public_char" resultType="Config_public_char" parameterType="Config_public_char">
+		select * from config_public_char where pbc_id=#{pbc_id}
+	
+	</select>
+</mapper>

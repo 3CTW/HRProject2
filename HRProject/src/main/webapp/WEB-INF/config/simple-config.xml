@@ -35,11 +35,10 @@
 	<!-- 配置静态资源处理方式 -->
 	<mvc:resources location="/css/" mapping="/css/**"></mvc:resources>
 	<mvc:resources location="/js/" mapping="/js/**"></mvc:resources>
-	<mvc:resources location="/" mapping="/html/**"></mvc:resources>
-	
+	<mvc:resources location="/" mapping="/*.html"></mvc:resources>
 	<bean id="multipartResolver"
 	 	class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<property name="maxUploadSize" value="20000000"></property>
+		<property name="maxUploadSize" value="20000000000"></property>
 	</bean>
 
 </beans>
