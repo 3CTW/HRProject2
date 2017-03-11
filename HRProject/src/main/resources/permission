@@ -1,0 +1,29 @@
+spring的权限管理
+	1.spring联合Acegi安全框架(主要有安全管理对象、拦截器、安全控制管理组件组成)
+	2.Acegi安全框架主要支持方法和URL请求两类安全管理对象
+	3.安全控制管理组件是实际实现各种安全控制的组件，队被拦截器的请求进行安全管理与控制，主要组件包括实现用户身份认证的AuthenticationManager、
+		和实现用户授权的AccessDecisionManager以及实现角色转换的RunAsManager
+	4.AuthenticationManager,用于认证SecurityContexHolder(  使用ThreadLocal来存储Authentication对象的地方   )来存储Authentication对象的地方
+	
+	5.Authentication对象，包含Principal对象以及授权给该Principal对象的Credential、authorities等信息，同时还包含关于发起认正请求的客户的其他信息，如IP地址
+	
+Acegi安全系统实现认证和授权机制的步骤如下：
+	1.用户登录系统，Acegi从acegisecurity.ui子系统的安全拦截器 如BasicProcessingFilter中得到用户登录的信息，包括Principal和Credential
+		并放入Authentication对象中，并保存在ContexHolder对象中，
+		
+	2.安全拦截器将Authentication对象交给AuthenticationManager进行身份认证，如果通过，返回带有Principal授权信息的Authentication对象
+		此时，ContexHolder对象Authentication已拥有Principal的详细信息
+		
+	3.用户登录成功后，继续进行业务操作
+	4.安全拦截器收到客户端操作请求后，将操作请求的数据包装成安全管理对象FilterInvocation或MethodInvocation对象
+	5.从配置文件中读取相关的配置参数ConfigAttributeDefintion
+	6.安全拦截器取出ContexHolder中的Authentication对象，把它传给AuthenticationManager进行身份认证，并用返回值更新ContexHolder的Authentication
+	7.将Authentication对象，ConfigAttributeDefintion对象和安全管理对象secureObject交给AccessDecisionManager，进行授权
+
+关键步骤的实方法：
+	1.实现系统的安全控制，首先需要对系统的认证管理和授权管理器进行配置，就需要配置安全拦截器
+	2.安全拦截器分为MethodSecurityInterceptor和FilterAccessDecisionManager两类
+		a.MethodSecurityInterceptor是借助Spring的AOP实现的
+		b. FilterAccessDecisionManager拦截器( URL资源 )是Servlet过滤器进行的
+	
+	

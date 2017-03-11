@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yc.mapper.PayManagerMapper">
+	 <cache></cache>
+	
+	<!-- 薪酬标准的登记 -->
+	<insert id="saveSalaryStandardDetails" parameterType="Salary_standard_details" useGeneratedKeys="true" keyProperty="sdt_id">
+		insert into salary_standard_details(standard_id,standard_name,item_id,item_name,salary)
+		 values(#{standard_id},#{standard_name},#{item_id},#{item_name},#{salary})
+	</insert>
+	
+	<!-- 薪酬标准的登记 -->
+	<insert id="saveSalaryStandard" parameterType="Salary_standard" useGeneratedKeys="true" keyProperty="ssd_id">
+		insert into salary_standard(standard_id,standard_name,designer,register,checker,changer,regist_time,check_time,change_time,salary_sum,check_status,change_status,check_comment,remark)
+		values(#{standard_id},#{standard_name},#{designer},#{register},null,null,#{regist_time},null,null,#{salary_sum},0,0,null,null)
+	</insert>
+	
+	<!-- 复核薪酬标准 -->
+	<update id="updateSalaryStandard" parameterType="Salary_standard">
+		update salary_standard set 
+			#{checker}=checker,#{check_time}=check_time,#{check_status}=1
+		<if test="changer!=''">
+		,#{changer}=changer
+		</if>
+		<if test="change_time!=''">
+		,#{change_time}=change_time
+		</if>
+		<if test="change_status!=''">
+		,#{change_status}=1
+		</if>
+		<if test="check_comment!=''">
+		,#{check_comment}=check_comment
+		</if>
+		<if test="remark!=''">
+		#{remark}=remark
+		</if>
+		 where ssd_id=#{ssd_id}
+	</update>
+	
+	
+	<!-- 查看薪酬标准   -->
+	<select id="getSalary" resultMap="SalaryResultMap" parameterType="Salary_standard_details">
+		select sdt_id,salary_details.standard_id,salary_details.standard_name,
+		item_id,item_name,salary,designer,register,checker,changer,regist_time,check_time,change_time,salary_sum,check_status,change_status,check_comment from
+		salary_standard_details salary_details, salary_standard  standard where salary_details.standard_id=standard.standard_id  and salary_details.standard_id =#{standard_id}
+	</select>
+	
+	<!-- 使用resultMap映射实体类和字段之间的一一对应的关系 -->
+	<!-- 也可以解决数据库的字段名与javaBean中的变量名不一致
+	  colum：表示数据库表中的字段名
+	  property：表示Book类中的变量
+	  association：表示连接的另一个表，property="category"是类Book中的变量
+	  -->
+	<resultMap id="SalaryResultMap" type="Salary_standard_details">
+			<!-- 主键 -->
+		<id property="sdt_id" column="sdt_id"></id>
+		<result property="standard_id" column="standard_id"></result>
+		<result property="standard_name" column="standard_name"></result>
+		<result property="item_id" column="item_id"></result>
+		<result property="item_name" column="item_name"></result>
+		<result property="salary" column="salary"></result>
+		<association property="salary_standard" javaType="Salary_standard">
+			<id property="ssd_id" column="ssd_id"></id>
+			<result property="standard_id" column="standard_id"></result>
+			<result property="standard_name" column="standard_name"></result>
+			<result property="designer" column="designer"></result>
+			<result property="register" column="register"></result>
+			<result property="checker" column="checker"></result>
+			<result property="changer" column="changer"></result>
+			<result property="regist_time" column="regist_time"></result>
+			<result property="check_time" column="check_time"></result>
+			<result property="change_time" column="change_time"></result>
+			<result property="salary_sum" column="salary_sum"></result>
+			<result property="check_status" column="check_status"></result>
+			<result property="change_status" column="change_status"></result>
+			<result property="check_comment" column="check_comment"></result>
+			<result property="remark" column="remark"></result>
+		</association>
+	</resultMap>
+	
+</mapper>

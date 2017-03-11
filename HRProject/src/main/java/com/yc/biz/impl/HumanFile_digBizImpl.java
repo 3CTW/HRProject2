@@ -4,10 +4,13 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.stereotype.Service;
+
 import com.yc.bean.HumanFile_dig;
 import com.yc.biz.HumanFile_digBiz;
 import com.yc.dao.BaseDao;
 
+@Service
 public class HumanFile_digBizImpl implements HumanFile_digBiz {
 	private BaseDao basedao;
 	@Resource(name="baseDaoMybatisImpl")

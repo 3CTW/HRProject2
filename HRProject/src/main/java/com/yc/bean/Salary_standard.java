@@ -8,7 +8,7 @@ public class Salary_standard implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 4604034954045299599L;
-	//*创建新表 "salary_standard"。                                                                    */
+	                                                                  
 //* "salary_standard" : 薪酬标准基本信息表                                                              */
 	private int ssd_id;// 主键，自动增长列                                                                       */
 	private String standard_id;//薪酬标准单编号                                                                   */

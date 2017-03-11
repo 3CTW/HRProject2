@@ -5,8 +5,8 @@
   
   <!-- 公共字段 -->
 <mapper namespace="com.yc.mapper.Config_public_char">
-	<select id="getAllConfig_public_chars" resultType="config_public_char">
-		select * from config_public_char
+	<select id="getAllConfig_public_chars" resultType="config_public_char" parameterType="Config_public_char">
+		select * from config_public_char where attribute_kind=#{attribute_kind}
 	</select>
 	
 	<select id="getConfig_public_char" resultType="Config_public_char" parameterType="Config_public_char">

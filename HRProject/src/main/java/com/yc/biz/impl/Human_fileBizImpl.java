@@ -4,12 +4,14 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.stereotype.Service;
 
 import com.yc.bean.Config_public_char;
 import com.yc.bean.Human_file;
 import com.yc.biz.Human_fileBiz;
 import com.yc.dao.BaseDao;
 
+@Service
 public class Human_fileBizImpl implements Human_fileBiz{
 	private BaseDao basedao;
 	@Resource(name="baseDaoMybatisImpl")
@@ -39,7 +41,7 @@ public class Human_fileBizImpl implements Human_fileBiz{
 	}
 	@Override
 	public List<Config_public_char> getAllConfig_public_chars() {
-		List<Config_public_char> list=this.basedao.findAll(new Config_public_char(), "getAllCategories");
+		List<Config_public_char> list=this.basedao.findAll(new Config_public_char(), "getAllConfig_public_chars");
 		return list;
 	}
 }

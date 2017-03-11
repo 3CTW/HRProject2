@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.yc.bean.Users;
 import com.yc.biz.usersBiz;
 import com.yc.dao.BaseDao;
+
 @Service
 public class usersBizImpl implements usersBiz {
 	/*创建新表 "user"。                                                                               */

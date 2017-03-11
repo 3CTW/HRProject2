@@ -18,12 +18,8 @@ create table "config_public_char" (
 	"attribute_name" varchar(60) )  */
 	private int pbc_id;
 	private String attribute_kind;
-	@Override
-	public String toString() {
-		return "config_public_char [pbc_id=" + pbc_id + ", attribute_kind=" + attribute_kind + ", attribute_name="
-				+ attribute_name + "]";
-	}
 	private String attribute_name;
+	
 	public int getPbc_id() {
 		return pbc_id;
 	}
@@ -42,4 +38,10 @@ create table "config_public_char" (
 	public void setAttribute_name(String attribute_name) {
 		this.attribute_name = attribute_name;
 	}
+	@Override
+	public String toString() {
+		return "config_public_char [pbc_id=" + pbc_id + ", attribute_kind=" + attribute_kind + ", attribute_name="
+				+ attribute_name + "]";
+	}
+	
 }
